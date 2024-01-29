@@ -1,0 +1,127 @@
+{
+    "steps": [
+        {
+            "id": "1",
+            "message": "Welcome to the M1/K1 bill payment bot. Which bill do you want to pay?",
+            "trigger": "options"
+        },
+        {
+            "id": "options",
+            "options": [
+                {
+                    "value": "Water Bill",
+                    "label": "Water Bill",
+                    "trigger": "waterConsumerID"
+                },
+                {
+                    "value": "Traffic Fine",
+                    "label": "Traffic Fine",
+                    "trigger": "fineConsumerID"
+                },
+                {
+                    "value": "Extract RC",
+                    "label": "Extract RC",
+                    "trigger": "rcExtractConsumerID"
+                }
+            ]
+        },
+        {
+            "id": "rcExtractConsumerID",
+            "message": "Please enter your consumer ID for RC",
+            "trigger": "getRcExtractRegNo"
+        },
+        {
+            "id": "getRcExtractRegNo",
+            "user": true,
+            "validator": "validateRcExtract",
+            "trigger": "fetchRCData"
+        },
+        {
+            "id": "fetchRCData",
+            "message": "Fetching RC details...",
+            "trigger": "displayRCData"
+        },
+        {
+            "id": "displayRCData",
+            "asMessage": true,
+            "component": "RCextract",
+            "waitAction": true,
+            "delay": 2000,
+            "trigger": "PayOrNotRC"
+        },
+        {
+            "id": "PayOrNotRC",
+            "message": "Do you want to pay for RC?",
+            "waitAction": true,
+            "delay": 3000,
+            "trigger": "yesNO"
+        },
+        {
+            "id": "yesNO",
+            "options": [
+                {
+                    "value": "Yes",
+                    "label": "YES",
+                    "trigger": "yesMessage"
+                },
+                {
+                    "value": "No",
+                    "label": "NO",
+                    "trigger": "mainMenu"
+                }
+            ]
+        },
+        {
+            "id": "yesMessage",
+            "component": {
+                "text": "Click [here](https://www.karnatakaone.gov.in/PortalHome/ServiceList) to make a payment",
+                "asMessage": true
+            },
+            "trigger": "mainMenu"
+        },
+        {
+            "id": "mainMenu",
+            "message": "Do you want to go back to the main menu?",
+            "trigger": "mainMenuOptions"
+        },
+        {
+            "id": "mainMenuOptions",
+            "options": [
+                {
+                    "value": "Yes",
+                    "label": "YES",
+                    "trigger": "options"
+                },
+                {
+                    "value": "No",
+                    "label": "NO",
+                    "trigger": "noMes"
+                }
+            ]
+        },
+        {
+            "id": "noMes",
+            "message": "Do you want to see/pay any other bills?",
+            "trigger": "noOpt"
+        },
+        {
+            "id": "noOpt",
+            "options": [
+                {
+                    "value": "Yes",
+                    "label": "YES",
+                    "trigger": "options"
+                },
+                {
+                    "value": "No",
+                    "label": "NO",
+                    "trigger": "noMessage"
+                }
+            ]
+        },
+        {
+            "id": "noMessage",
+            "message": "Thanks for using the chatbot. See you later!"
+        }
+    ]
+}
